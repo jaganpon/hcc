@@ -19,19 +19,42 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Build And Deploy
+
+      # Setup Node.js for Angular build
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Setup Python for API build
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # Install Angular dependencies
+      - name: Install Angular dependencies
+        run: npm install
+
+      # Build Angular app
+      - name: Build Angular app
+        run: npm run build --if-present
+
+      # Install Python API dependencies
+      - name: Install API dependencies
+        run: pip install -r api/requirements.txt
+
+      # Deploy to Azure Static Web Apps
+      - name: Deploy to Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SKY_0CA971600 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "/api" # Api source code path - optional
-          output_location: "dist/hcc" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          app_location: "/"           # Angular root folder
+          api_location: "api"         # Python backend folder
+          output_location: "dist/hcc" # Angular build output folder
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
