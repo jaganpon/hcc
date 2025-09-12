@@ -20,41 +20,32 @@ jobs:
           submodules: true
           lfs: false
 
-      # Setup Node.js for Angular build
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # Setup Python for API build
-      - name: Setup Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
 
-      # Install Angular dependencies
-      - name: Install Angular dependencies
-        run: npm install
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
 
-      # Build Angular app
-      - name: Build Angular app
-        run: npm run build --if-present
-
-      # Install Python API dependencies
-      - name: Install API dependencies
+      - name: Install dependencies
         run: pip install -r api/requirements.txt
 
-      # Deploy to Azure Static Web Apps
-      - name: Deploy to Azure Static Web Apps
+      - name: Build Angular app
+        run: |
+          npm ci
+          npm run build --prod
+
+      - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SKY_0CA971600 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"           # Angular root folder
-          api_location: "api"         # Python backend folder
-          output_location: "dist/hcc" # Angular build output folder
+          app_location: "/"               # Angular app root
+          api_location: "/api"            # Backend API folder
+          output_location: "dist/hcc"     # Angular build output
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -65,5 +56,5 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SKY_0CA971600 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "close"
