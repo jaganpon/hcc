@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from project1.virtual_onboarding_backend_fixed.app.database import get_conn
+from api.project1.virtual_onboarding_backend_fixed.app.database import get_conn
 
-router = APIRouter(prefix='/admin', tags=['admin'])
+router = APIRouter()
 
 @router.get('/joinees')
 def list_joinees():

@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 import logging
 
-from project_cache.models import Document, Chunk, FAQ
+from api.project_cache.models import Document, Chunk, FAQ
 
 # ---------------- Load Config ----------------
 load_dotenv()

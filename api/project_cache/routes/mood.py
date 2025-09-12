@@ -3,12 +3,12 @@ from fastapi import APIRouter, BackgroundTasks, Depends
 from typing import Optional
 from sqlalchemy.orm import Session
 from datetime import datetime
-from project_cache.database import SessionLocal, Base, engine
-from project_cache.schemas import MoodChatIn, MoodChatOut, MoodLogOut, MoodAnalyticsOut
-from project_cache.services.mood_service import MoodFlowService
-from project_cache.models import MoodLog
-from project_cache.services.graph_service import send_teams_mood_notification
-from project_cache.models import User
+from api.project_cache.database import SessionLocal, Base, engine
+from api.project_cache.schemas import MoodChatIn, MoodChatOut, MoodLogOut, MoodAnalyticsOut
+from api.project_cache.services.mood_service import MoodFlowService
+from api.project_cache.models import MoodLog
+from api.project_cache.services.graph_service import send_teams_mood_notification
+from api.project_cache.models import User
 
 Base.metadata.create_all(bind=engine)
 router = APIRouter()

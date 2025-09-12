@@ -2,10 +2,12 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import onboarding, mood
-from project_cache.database import Base, engine
+from api.project_cache.database import Base, engine
 from dotenv import load_dotenv
+from fastapi import APIRouter
 
 load_dotenv()  # read .env
+router = APIRouter()
 
 # Ensure DB tables exist
 Base.metadata.create_all(bind=engine)
@@ -23,6 +25,6 @@ app.add_middleware(
 app.include_router(onboarding.router, prefix="/onboarding", tags=["Onboarding RAG"])
 app.include_router(mood.router, prefix="/mood", tags=["Mood Tracker"])
 
-@app.get("/")
+@router.get("/")
 def root():
     return {"message": "Backend running. Use /onboarding/* and /mood/* endpoints"}

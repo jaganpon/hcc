@@ -2,10 +2,10 @@ import json
 from fastapi import APIRouter, HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
-from project1.virtual_onboarding_backend_fixed.app.database import get_conn
+from api.project1.virtual_onboarding_backend_fixed.app.database import get_conn
 import uuid, datetime
 
-router = APIRouter(prefix='/users', tags=['users'])
+router = APIRouter()
 
 def generate_temp_id():
     return 'ONB-' + uuid.uuid4().hex[:8].upper()

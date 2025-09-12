@@ -1,4 +1,4 @@
-from project_cache.database import Base, engine
+from api.project_cache.database import Base, engine
 import models   # ✅ just import whole models file
 
 # Drop all tables

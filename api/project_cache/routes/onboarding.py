@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Query, UploadFile, File, Form, Depends, HTTPException
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from project_cache.database import SessionLocal, Base, engine
-from project_cache.services.rag_service import save_file_and_chunks, list_files, clear_files, handle_chat
-from project_cache.schemas import ChatOut, UploadOut, FileItem, FAQItem, ChatOut as ChatOutSchema
-from project_cache.models import Document
+from api.project_cache.database import SessionLocal, Base, engine
+from api.project_cache.services.rag_service import save_file_and_chunks, list_files, clear_files, handle_chat
+from api.project_cache.schemas import ChatOut, UploadOut, FileItem, FAQItem, ChatOut as ChatOutSchema
+from api.project_cache.models import Document
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
 
@@ -96,6 +96,6 @@ def top_faqs(limit: int = 20, db: Session = Depends(get_db)):
     # Correct query:
     rows = db.query.__class__
     # Instead just run a proper query:
-    from project_cache.models import FAQ
+    from api.project_cache.models import FAQ
     rows = db.query(FAQ).order_by(FAQ.count.desc()).limit(limit).all()
     return [{"question": r.question, "count": r.count} for r in rows]
