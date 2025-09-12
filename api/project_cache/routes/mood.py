@@ -7,7 +7,7 @@ from project_cache.database import SessionLocal, Base, engine
 from project_cache.schemas import MoodChatIn, MoodChatOut, MoodLogOut, MoodAnalyticsOut
 from project_cache.services.mood_service import MoodFlowService
 from project_cache.models import MoodLog
-from project_cache.services.graph_service import send_mood_notification_to_employees
+from project_cache.services.graph_service import send_teams_mood_notification
 
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
@@ -151,6 +151,6 @@ def trigger_mood():
     """
     employees = ["employee1@yourorg.com", "employee2@yourorg.com"]  # fetch from DB later
     for emp in employees:
-        send_mood_notification_to_employees(emp)
+        send_teams_mood_notification(emp)
 
     return {"status": "success", "message": "Mood metrics notifications sent"}
