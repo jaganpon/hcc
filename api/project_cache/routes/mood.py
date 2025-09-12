@@ -1,5 +1,5 @@
 import uuid
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends
 from typing import Optional
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -8,6 +8,7 @@ from project_cache.schemas import MoodChatIn, MoodChatOut, MoodLogOut, MoodAnaly
 from project_cache.services.mood_service import MoodFlowService
 from project_cache.models import MoodLog
 from project_cache.services.graph_service import send_teams_mood_notification
+from project_cache.models import User
 
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
@@ -144,13 +145,29 @@ def analytics(
         "top_moods": global_moods
     }
 
-@router.post("/trigger-mood")
-def trigger_mood():
-    """
-    Called by HR panel to send mood metrics notifications to all employees
-    """
-    employees = ["employee1@yourorg.com", "employee2@yourorg.com"]  # fetch from DB later
-    for emp in employees:
-        send_teams_mood_notification(emp)
+def notify_employee(emp_email: str):
+    """Wrapper to safely send notifications with error handling."""
+    try:
+        send_teams_mood_notification(emp_email)
+        print(f"✅ Notification sent to {emp_email}")
+    except Exception as e:
+        print(f"❌ Failed to notify {emp_email}: {e}")
 
-    return {"status": "success", "message": "Mood metrics notifications sent"}
+@router.post("/trigger-mood")
+def trigger_mood(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    """
+    Called by HR panel to send mood metrics notifications to all employees.
+    Runs notifications in background so HR panel responds quickly.
+    """
+    employees = db.query(User).filter(User.is_active == True).all()
+
+    if not employees:
+        return {"status": "error", "message": "No active employees found"}
+
+    for emp in employees:
+        background_tasks.add_task(notify_employee, emp.email)
+
+    return {
+        "status": "success",
+        "message": f"Queued notifications for {len(employees)} employees"
+    }

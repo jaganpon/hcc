@@ -22,6 +22,11 @@ export const UiComponentsRoutes: Routes = [
     path: '',
     children: [
       {
+        path: '',
+        redirectTo: 'virtual-onboarding',
+        pathMatch: 'full',
+      },
+      {
         path: 'hr-panel',
         component: HRPanelComponent,
       },

@@ -9,14 +9,14 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/ui-components',
         pathMatch: 'full',
       },
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./pages/pages.routes').then((m) => m.PagesRoutes),
-      },
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () =>
+      //     import('./pages/pages.routes').then((m) => m.PagesRoutes),
+      // },
       {
         path: 'ui-components',
         loadChildren: () =>

@@ -15,6 +15,7 @@ import {
     ApexStroke,
     NgApexchartsModule,
 } from 'ng-apexcharts';
+import { environment } from 'src/environments/environment';
 
 type PieChart = {
     series: ApexNonAxisChartSeries;
@@ -43,6 +44,7 @@ type ColumnChart = {
     styleUrls: ['./mood-graph.component.scss'],
 })
 export class MoodGraphComponent implements OnInit, AfterViewInit {
+    private base = environment.apiBase;
     @ViewChild('dayChart') dayChart!: ChartComponent;
     @ViewChild('topMoodChart') topMoodChart!: ChartComponent;
     dayPieChart!: PieChart;
@@ -71,7 +73,7 @@ export class MoodGraphComponent implements OnInit, AfterViewInit {
     }
 
     loadCharts() {
-        this.http.get<any>('http://localhost:8000/v1/mood/analytics?group_by=day')
+        this.http.get<any>(`${this.base}/mood/analytics?group_by=day`)
             .subscribe({
                 next: (res) => {
                     // ---- Prepare buckets safely ----

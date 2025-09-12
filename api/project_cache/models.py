@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
+from sqlalchemy import Boolean, Column, Integer, String, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from project_cache.database import Base
@@ -44,3 +44,11 @@ class MoodLog(Base):
     username = Column(String, default="Anonymous")
     date = Column(String, index=True)  # yyyy-mm-dd
     created_at = Column(DateTime, default=func.now())
+    
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    is_active = Column(Boolean, default=True)

@@ -99,7 +99,7 @@ export class DocListComponent implements OnInit, AfterViewInit {
         console.log("Deleting single row:", element);
 
         // Call backend API with the file id
-        this.http.delete(`http://localhost:8000/onboarding/files/delete?file_ids=${element.id}`)
+        this.http.delete(`${this.base}/onboarding/files/delete?file_ids=${element.id}`)
             .subscribe({
                 next: (res: any) => {
                     console.log("API delete response:", res);
@@ -128,7 +128,7 @@ export class DocListComponent implements OnInit, AfterViewInit {
         // Build query params like: file_ids=1&file_ids=2&file_ids=3
         const params = ids.map(id => `file_ids=${id}`).join('&');
 
-        this.http.delete(`http://localhost:8000/onboarding/files/delete?${params}`)
+        this.http.delete(`${this.base}/onboarding/files/delete?${params}`)
             .subscribe({
                 next: (res: any) => {
                     console.log("API delete response:", res);

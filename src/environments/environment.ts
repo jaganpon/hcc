@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBase: 'http://localhost:8000/v1' // change to your backend
+  apiBase: 'https://purple-sky-0ca971600.2.azurestaticapps.net/v1' // change to your backend
 };
