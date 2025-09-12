@@ -1,0 +1,49 @@
+<div class="landing-container" *ngIf="!showOnboarding">
+  <mat-card>
+    <mat-card-content>
+      <h2>Welcome to HR Connect</h2>
+      <p>Please register as a new user or continue with your temporary ID.</p>
+
+      <!-- Registration form -->
+      <div class="form-section">
+        <h3>Register New User</h3>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="name" name="name" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="email" name="email" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput [(ngModel)]="phone" name="phone" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="register()">Register</button>
+      </div>
+
+      <hr />
+
+      <!-- Continue form -->
+      <div class="form-section">
+        <h3>Continue with Temp ID</h3>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Temporary ID</mat-label>
+          <input matInput [(ngModel)]="tempId" name="tempId" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" (click)="continue()">Continue</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Onboarding Page -->
+<div *ngIf="showOnboarding">
+  <app-onboarding (onboardingComplete)="handleOnboardingComplete()" [tempId]="tempId"></app-onboarding>
+</div>

@@ -1,0 +1,40 @@
+<main class="main">
+  <mat-card class="cardWithShadow text-center little-profile">
+
+    <mat-card-content class="p-24">
+      <div style="padding: 5px; max-width: 100%; margin: auto;">
+        <mat-card>
+          <h2>📄 Upload Document</h2>
+          <!-- Hidden file input -->
+          <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
+
+          <!-- Trigger button -->
+          <button mat-raised-button color="primary" (click)="fileInput.click()">
+            <mat-icon>upload</mat-icon>
+            Select File
+          </button>
+
+          <!-- Show selected file -->
+          <div *ngIf="selectedFiles.length > 0" class="file-info">
+            <p><strong>Selected:</strong> {{ selectedFile?.name }}</p>
+
+            <button mat-raised-button color="primary" (click)="uploadFiles()"
+              [disabled]="uploading || selectedFiles.length === 0" *ngIf="selectedFiles.length > 0">
+              <mat-icon>cloud_upload</mat-icon>
+              Upload
+            </button>
+          </div>
+
+          <!-- Upload progress bar -->
+          <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"
+            class="mt-2"></mat-progress-bar>
+
+          <!-- Progress text -->
+          <div *ngIf="uploading">
+            {{ uploadProgress }}%
+          </div>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</main>

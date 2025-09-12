@@ -1,0 +1,27 @@
+  .onboarding-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 16px;
+  }
+
+  .form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+
+  .file-upload {
+    margin: 16px 0;
+  }
+
+  .task-list, .training-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+  }

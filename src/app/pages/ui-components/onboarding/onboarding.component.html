@@ -1,0 +1,31 @@
+<div class="onboarding-container">
+    <h2>Onboarding Process</h2>
+
+    <mat-vertical-stepper linear [selectedIndex]="currentStep">
+        <mat-step *ngFor="let module of modules; let i = index" [stepControl]="stepForms[i]"
+            [completed]="stepCompletion[i]">
+            <ng-template matStepLabel>{{ module.name }}</ng-template>
+            <p>{{ module.description }}</p>
+
+            <form [formGroup]="stepForms[i]" class="task-list">
+                <mat-checkbox *ngFor="let task of module.tasks" [formControlName]="task.id"
+                    (change)="onTaskToggle(i, task.id)">
+                    {{ task.name }}
+                </mat-checkbox>
+            </form>
+
+            <div class="step-actions">
+                <button mat-raised-button color="primary" (click)="saveStep(i)" [disabled]="!stepCompletion[i]">
+                    Save & Continue
+                </button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+
+    <div *ngIf="modules.length && allStepsCompleted" class="finish-actions">
+        <button mat-raised-button color="accent" (click)="finishOnboarding()">
+            Finish Onboarding
+        </button>
+    </div>
+
+</div>

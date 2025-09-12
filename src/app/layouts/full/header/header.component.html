@@ -1,0 +1,23 @@
+<mat-toolbar class="topbar gap-10">
+
+  <app-branding></app-branding>
+
+  <!-- Mobile Menu -->
+  
+  <button mat-icon-button (click)="toggleMobileNav.emit()" class="d-flex d-lg-none justify-content-center">
+    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+  </mat-menu>
+
+
+  <span class="flex-1-auto"></span>
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- profile Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+
+</mat-toolbar>

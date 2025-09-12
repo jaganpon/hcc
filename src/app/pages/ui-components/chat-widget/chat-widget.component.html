@@ -1,0 +1,47 @@
+<!-- Floating chat bubble -->
+<div class="chat-toggle" (click)="toggleChat()">
+  💬
+</div>
+
+<!-- Chat window -->
+<div class="chat-window" *ngIf="isOpen">
+  <div class="chat-header">
+    <span>Assistant</span>
+    <button (click)="toggleChat()">✖</button>
+  </div>
+
+  <!-- Messages -->
+  <!-- <div class="chat-messages">
+    <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+      <div class="bubble" [class.typing]="msg.typing">{{ msg.text }}</div>
+    </div>
+  </div> -->
+  <div class="msg-box p-b-16 chat-messages">
+        @for(msg of messages; track msg.sender) {
+        <div mat-menu-item class="p-x-24 p-y-16"  [ngClass]="msg.sender">
+            <div class="d-flex align-items-center w-100 bubble">
+                <img *ngIf="msg.sender === 'bot'" [src]="'/assets/images/rbbn_img/bot.gif'" class="rounded-circle" width="30" />
+                <div class="m-l-16">
+                    <h5 class="f-s-14 f-w-600 m-0">
+                        {{ msg.sender }}
+                    </h5>
+                    <span class="f-s-14">{{ msg.text }}</span>
+                </div>
+                <img *ngIf="msg.sender !== 'bot'" [src]="'/assets/images/profile/user-1.jpg'" class="rounded-circle" width="30" />
+                
+            </div>
+        </div>
+        }
+    </div>
+
+
+
+
+  <!-- Input -->
+  <div class="chat-input">
+    <input [(ngModel)]="question"
+           (keyup.enter)="sendMessage()"
+           placeholder="Type a message..." />
+    <button (click)="sendMessage()" [disabled]="!question.trim()">Send</button>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="mood-analyser-container">
+  <div class="stepper">
+    <div class="step" [class.active]="currentStep === 1">1</div>
+    <div class="step" [class.active]="currentStep === 2">2</div>
+    <div class="step" [class.active]="currentStep === 3">3</div>
+  </div>
+
+  <h3>{{ heading }}</h3>
+
+  <div *ngIf="!showThanks">
+
+    <!-- Step 1 -->
+    <div *ngIf="currentStep === 1" class="step-content step-1">
+      <div class="mood-buttons">
+        <button *ngFor="let mood of moods" class="mood-btn" (click)="selectMood(mood.value)">
+          <span class="emoji">{{ mood.icon }}</span>
+          <span class="label">{{ mood.label }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div *ngIf="currentStep === 2" class="step-content step-2">
+      <input [formControl]="nameControl" type="text" placeholder="Your name">
+      <label>
+        <input type="checkbox" [formControl]="anonymousControl"> Continue as anonymous
+      </label>
+      <button [disabled]="!canContinue()" (click)="continueStep2()">Continue</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div *ngIf="currentStep === 3" class="step-content step-3">
+      <textarea [formControl]="feedbackControl" placeholder="Enter your reason"></textarea>
+      <button (click)="submitFeedback()" [disabled]="feedbackControl.invalid">Submit</button>
+    </div>
+  </div>
+
+  <!-- Thank You Card -->
+  <div *ngIf="showThanks" class="thanks-card">
+    <h3>{{ heading }}</h3>
+    <button (click)="resetStepper()">Give Another Feedback</button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<header style="padding: 10px; background: #f4f4f4; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <strong>HR Connect</strong>
+    </div>
+    <div>
+        <button *ngIf="!userName" (click)="login()">Login with Microsoft</button>
+        <span *ngIf="userName">
+            Welcome, {{ userName }}
+            <button (click)="logout()">Logout</button>
+        </span>
+    </div>
+</header>
+
+<!-- Your Angular routes render here -->
+<router-outlet></router-outlet>

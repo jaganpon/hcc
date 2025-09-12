@@ -1,0 +1,52 @@
+<mat-card class="cardWithShadow" *ngIf="dayPieChart && topMoodPieChart">
+  <mat-card-content>
+    <div class="charts-container">
+      
+      <!-- Day Mood Pie Chart -->
+      <div class="chart-wrapper">
+        <mat-card-title>Day Mood Distribution</mat-card-title>
+        <apx-chart  #dayChart
+          [series]="dayPieChart.series"
+          [chart]="dayPieChart.chart"
+          [labels]="dayPieChart.labels"
+          [responsive]="dayPieChart.responsive"
+          [legend]="dayPieChart.legend"
+          [dataLabels]="dayPieChart.dataLabels"
+          [colors]="dayPieChart.colors"
+        ></apx-chart>
+      </div>
+
+      <!-- Top Mood Pie Chart -->
+      <div class="chart-wrapper">
+        <mat-card-title>Top Mood Distribution</mat-card-title>
+        <apx-chart #topMoodChart
+          [series]="topMoodPieChart.series"
+          [chart]="topMoodPieChart.chart"
+          [labels]="topMoodPieChart.labels"
+          [responsive]="topMoodPieChart.responsive"
+          [legend]="topMoodPieChart.legend"
+          [dataLabels]="topMoodPieChart.dataLabels"
+          [colors]="topMoodPieChart.colors"
+        ></apx-chart>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card class="cardWithShadow" *ngIf="rangeColumnChart">
+  <mat-card-content>
+    <mat-card-title>Range Mood Stats</mat-card-title>
+    <div id="range-column-chart" class="m-t-32">
+      <apx-chart
+        [series]="rangeColumnChart.series"
+        [chart]="rangeColumnChart.chart"
+        [xaxis]="rangeColumnChart.xaxis"
+        [yaxis]="rangeColumnChart.yaxis"
+        [dataLabels]="rangeColumnChart.dataLabels"
+        [stroke]="rangeColumnChart.stroke"
+      ></apx-chart>
+    </div>
+  </mat-card-content>
+</mat-card>

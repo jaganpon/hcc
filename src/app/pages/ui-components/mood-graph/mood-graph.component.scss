@@ -1,0 +1,51 @@
+.mood-graphs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  mat-card.cardWithShadow {
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+
+    mat-card-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+  }
+
+  .charts-container {
+    display: flex;
+    justify-content: space-between; /* space between charts */
+    flex-wrap: wrap;               /* wrap on smaller screens */
+    gap: 16px;
+
+    .chart-wrapper {
+      flex: 1 1 45%;               /* ~45% width each chart */
+      min-width: 300px;            /* prevent too small on mobile */
+      text-align: center;
+      margin-bottom: 2rem;         /* space for bottom legend */
+
+      /* Force ApexCharts legend at bottom */
+      ::ng-deep .apexcharts-legend {
+        position: relative !important;
+        bottom: 0 !important;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.chart-wrapper {
+  flex: 1 1 45%;  // ~45% each chart
+  min-width: 300px;
+}
+

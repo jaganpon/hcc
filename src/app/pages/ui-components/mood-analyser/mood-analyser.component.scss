@@ -1,0 +1,97 @@
+.mood-analyser-container {
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+
+  .stepper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .step {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      background: #ddd;
+      color: #555;
+      font-weight: bold;
+
+      &.active {
+        background: #4caf50;
+        color: white;
+      }
+    }
+  }
+
+  .step-content {
+    h3 {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #4caf50;
+      color: white;
+      cursor: pointer;
+
+      &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .mood-buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .mood-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 24px;
+      padding: 15px;
+      margin: 10px;
+      cursor: pointer;
+      background: #f1f1f1;
+      border: none;
+      border-radius: 10px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      .emoji {
+        font-size: 40px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .thanks-card {
+    background: #e0ffe0;
+    padding: 20px;
+    border-radius: 10px;
+    h3 {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+    }
+  }
+}
