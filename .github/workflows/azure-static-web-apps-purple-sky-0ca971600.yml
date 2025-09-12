@@ -45,7 +45,7 @@ jobs:
           action: "upload"
           app_location: "/"               # Angular app root
           api_location: "/api"            # Backend API folder
-          output_location: "dist/hcc"     # Angular build output
+          output_location: "dist/Materialpro"     # Angular build output
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
